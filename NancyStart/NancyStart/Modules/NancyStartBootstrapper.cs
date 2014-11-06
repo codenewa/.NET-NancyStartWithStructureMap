@@ -11,6 +11,7 @@ namespace NancyStart.Modules
         {
             StructureMapContainer.Configure(existingContainer);
         }
+
         protected override void ApplicationStartup(StructureMap.IContainer container, Nancy.Bootstrapper.IPipelines pipelines)
         {
             pipelines.OnError.AddItemToStartOfPipeline((ctxt, error) =>
