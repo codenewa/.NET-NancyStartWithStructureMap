@@ -28,6 +28,7 @@ namespace NancyStart.Modules
                     };
                 return HttpStatusCode.InternalServerError;
             });
+
         }
     }
 }
