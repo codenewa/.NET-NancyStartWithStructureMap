@@ -78,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\CarModule.cs" />
+    <Compile Include="Models\CarNotFoundException.cs" />
+    <Compile Include="Modules\NancyStartBootstrapper.cs" />
+    <Compile Include="Modules\StructureMapContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

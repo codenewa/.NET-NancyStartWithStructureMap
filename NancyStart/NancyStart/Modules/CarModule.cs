@@ -8,19 +8,32 @@ namespace NancyStart.Modules
 {
     public class CarModule: NancyModule
     {
-        public CarModule()
-        {
-            Get["/"] = _ => "Hello World";
 
+        private readonly ICarRepository _repository;
+
+
+        public CarModule(ICarRepository repository)
+        {
+            
+            _repository = repository;
+            #region
+            Get["/"] = _ => "Hello World";
+            #endregion
+
+            #region Getbyid
             Get["/car/{id}"] = parameters =>
             {
                 int id = parameters.id;
 
+                var car = _repository.GetById(id);
+
                 return Negotiate
                     .WithStatusCode(HttpStatusCode.OK)
-                    .WithModel(id);
+                    .WithModel(car);
             };
+            #endregion
 
+            #region get by make and mdoel
             Get["/{make}/{model}"] = _ =>
             {
 
@@ -47,6 +60,8 @@ namespace NancyStart.Modules
                     .WithStatusCode(HttpStatusCode.OK)
                     .WithModel(list);
             };
+
+            #endregion
         }
     }
 
@@ -55,5 +70,26 @@ namespace NancyStart.Modules
         public int Id { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
+    }
+
+    public interface ICarRepository
+    {
+        Car GetById(int id);
+    }
+
+    public class CarRepository : ICarRepository
+    {
+        public Car GetById(int id)
+        {
+            if (id == 999)
+                throw new CarNotFoundException();
+            else
+                return new Car
+                {
+                    Id  = id,
+                    Make="Tesla",
+                    Model="Roadster"
+                };
+        }
     }
 }
